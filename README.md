@@ -1,2 +1,3 @@
-# BasicCppLibrary
-Basic Cpp Library
+# Basic Cpp Library
+
+A C++ sandbox of useful or custom method and classes
