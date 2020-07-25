@@ -2,14 +2,21 @@
 //
 
 #include "stdafx.h"
+#include "BasicAlgorithm.h"
 
+using namespace bsc;
 
 int main()
 {
-    std::cout << "Hello World!";
+    //TODO unit testing
+
+    std::vector<int> v = { 64, 34, 25, 12, -22, 90, -5 };
+    std::vector<int> v2 = v;
+    
+    bubble_sort(v.begin(), v.end());
+    bit_radix_sort(v2.begin(), v2.end());
 
     std::cin.get();
 
     return 0;
 }
-
