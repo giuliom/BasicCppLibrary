@@ -12,6 +12,7 @@ namespace bsc
 		*b_it = temp;
 	}
 
+	// --------------------------------------------- SORTING ---------------------------------------------
 
 	/*
 	 *	SELECTION SORT
@@ -252,6 +253,46 @@ namespace bsc
 		uint bit_index = num_bits - 1;
 
 		bit_sort(begin_it, end_it, bit_index, consider_sign);
+	}
+
+
+	// --------------------------------------------- SEARCH ---------------------------------------------
+	
+	template<typename Container>
+	typename Container::const_iterator binary_search(const Container& items, const typename Container::value_type& val)
+	{
+		const auto size = items.size();
+
+		if (size < 1u)
+		{
+			return items.end();
+		}
+
+		auto start = 0u;
+		auto end = size - 1u;
+
+		while (start <= end)
+		{
+			auto middle = (end + start) / 2u;
+
+			auto middle_val = items[middle];
+
+
+			if (middle_val == val)
+			{
+				return items.begin() + middle;
+			}
+			else if (middle_val > val)
+			{
+				end = middle - 1u;
+			}
+			else
+			{
+				start = middle + 1u;
+			}
+		}
+
+		return items.end();
 	}
 
 } // namespace bsc
