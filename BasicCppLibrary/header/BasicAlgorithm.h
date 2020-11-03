@@ -2,8 +2,6 @@
 
 namespace bsc
 {
-	typedef unsigned int uint;
-
 	template<typename Iterator>
 	inline void swap_value(const Iterator a_it, const Iterator b_it)
 	{
@@ -193,7 +191,7 @@ namespace bsc
 		}
 	}
 
-
+	
 	/*
 	 *	BIT RADIX SORT
 	 *
@@ -258,37 +256,43 @@ namespace bsc
 
 	// --------------------------------------------- SEARCH ---------------------------------------------
 	
+
+	/*
+	 *	BINARY SEARCH
+	 *
+	 *	avg time: O(log n)
+	 *
+	 */
 	template<typename Container>
 	typename Container::const_iterator binary_search(const Container& items, const typename Container::value_type& val)
 	{
 		const auto size = items.size();
 
-		if (size < 1u)
+		if (size < 1)
 		{
 			return items.end();
 		}
 
-		auto start = 0u;
-		auto end = size - 1u;
+		auto start = items.begin();
+		auto end = items.end() - 1;
 
 		while (start <= end)
 		{
-			auto middle = (end + start) / 2u;
+			auto middle = items.begin() + std::distance(start, end) / 2;
 
-			auto middle_val = items[middle];
-
+			auto middle_val = *middle;
 
 			if (middle_val == val)
 			{
-				return items.begin() + middle;
+				return middle;
 			}
 			else if (middle_val > val)
 			{
-				end = middle - 1u;
+				end = middle - 1;
 			}
 			else
 			{
-				start = middle + 1u;
+				start = middle + 1;
 			}
 		}
 

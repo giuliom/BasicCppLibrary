@@ -24,6 +24,18 @@
     <ClInclude Include="header\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\BasicChrono.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BasicGlobal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BasicMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BasicMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BasicCppLibrary.cpp">

@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\BasicAlgorithm.h" />
+    <ClInclude Include="header\BasicChrono.h" />
+    <ClInclude Include="header\BasicGlobal.h" />
+    <ClInclude Include="header\BasicMath.h" />
+    <ClInclude Include="header\BasicMemory.h" />
     <ClInclude Include="header\stdafx.h" />
     <ClInclude Include="header\targetver.h" />
   </ItemGroup>
