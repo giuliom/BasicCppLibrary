@@ -264,11 +264,11 @@ namespace bsc
 	 *
 	 */
 	template<typename Container>
-	typename Container::const_iterator binary_search(const Container& items, const typename Container::value_type& val)
+	typename Container::const_iterator binary_search(const Container& items, const typename Container::value_type& target)
 	{
 		const auto size = items.size();
 
-		if (size < 1)
+		if (size == 0)
 		{
 			return items.end();
 		}
@@ -278,15 +278,15 @@ namespace bsc
 
 		while (start <= end)
 		{
-			auto middle = items.begin() + std::distance(start, end) / 2;
+			auto middle = start + (end - start) / 2;
 
 			auto middle_val = *middle;
 
-			if (middle_val == val)
+			if (middle_val == target)
 			{
 				return middle;
 			}
-			else if (middle_val > val)
+			else if (target < middle_val)
 			{
 				end = middle - 1;
 			}

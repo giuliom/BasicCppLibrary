@@ -15,11 +15,11 @@ int main()
 
     // --------------------------------------- Algorithm Demo ---------------------------------------
 
-    std::vector<int> v = { 64, 34, 25, 12, -22, 90, -5 };
+    std::vector<int> v = { -1, 0, 3, 5, 9, 12 };
     std::vector<int> v2 = v;
     bsc::bubble_sort(v.begin(), v.end());
 
-    auto res = bsc::binary_search(v2, 12);
+    auto searched_it = bsc::binary_search(v2, 9);
 
     // --------------------------------------- Chrono Demo ------------------------------------------
 
