@@ -36,6 +36,9 @@
     <ClInclude Include="header\BasicMemory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\BasicRegex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BasicCppLibrary.cpp">
