@@ -7,6 +7,7 @@
 #include "BasicMath.h"
 #include "BasicChrono.h"
 #include "BasicRegex.h"
+#include "BasicMemory.h"
 
 using namespace std::chrono_literals;
 
@@ -33,8 +34,7 @@ int main()
     std::this_thread::sleep_for(10ms);
     const auto now = std::chrono::high_resolution_clock::now();
 
-    float milliseconds = 0;
-    bsc::chrono::convert_chrono_duration<std::chrono::milliseconds>(now - begin, milliseconds);
+    float milliseconds = bsc::chrono::convert_chrono_duration<float, std::chrono::milliseconds>(now - begin);
     std::cout<<milliseconds<<" ms\n";
 
     // --------------------------------------- Math Demo --------------------------------------------

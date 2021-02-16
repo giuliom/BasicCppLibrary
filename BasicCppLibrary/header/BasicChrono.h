@@ -4,10 +4,12 @@ namespace bsc
 {
 	namespace chrono
 	{
-		template<typename DurationMeasure, typename DurationType, typename OutputType>
-		void convert_chrono_duration(const DurationType& duration, OutputType& output)
+		template<typename OutputType, typename DurationMeasure, typename DurationType>
+		OutputType convert_chrono_duration(const DurationType& duration)
 		{
-			output = std::chrono::duration_cast<DurationMeasure>(duration).count();
+			return std::chrono::duration_cast<std::chrono::duration<OutputType, DurationMeasure::period>>(duration).count();
 		}
 	}
 }
+
+//using milliseconds = duration<long long, milli>;
