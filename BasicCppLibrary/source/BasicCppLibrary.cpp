@@ -19,23 +19,37 @@ int main()
     // --------------------------------------- Memory Demo -----------------------------------------
 
     std::cout << std::endl << "Memory Demo" << std::endl;
+
     int* size = new int(10);
     int* my_ints = new int[*size];
+
+    std::cout << std::endl;
     
     for (int i = 0; i < *size; ++i)
     {
         my_ints[i] = i;
-        std::cout << my_ints[i];
-        if (i < *size - 1)
-        {
-            std::cout << " ";
-        }
+        std::cout << my_ints[i] << " ";
     }
 
     delete size;
     delete[] my_ints;
 
     std::cout << std::endl;
+
+    {
+        std::vector<int, bsc::base_allocator<int>> base_allocator_vector(5, 1);
+
+        std::cout << std::endl;
+
+        for (const auto& i : base_allocator_vector)
+        {
+            std::cout << i << " ";
+        }
+    }
+
+    std::cout << std::endl;
+
+    std::cin.get();
 
     // --------------------------------------- Algorithm Demo ---------------------------------------
 
