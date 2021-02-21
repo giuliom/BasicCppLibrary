@@ -89,7 +89,10 @@ int main()
 
         std::cout << std::endl;
 
+        bsc::shared_ptr<float> sh0 = new float(3.14f);
+
         {
+            bsc::shared_ptr<float> sh1 = sh0;
             std::vector<int, bsc::base_allocator<int>> base_allocator_vector(5, 1);
 
             std::cout << std::endl;
@@ -99,6 +102,8 @@ int main()
                 std::cout << i << " ";
             }
         }
+
+        std::cout << std::endl << *sh0;
 
         std::cout << std::endl;
 

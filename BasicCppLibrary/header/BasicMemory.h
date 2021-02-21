@@ -109,6 +109,11 @@ namespace bsc
 	public:
 		unique_ptr() : ptr(nullptr) {}
 		unique_ptr(T* ptr) : m_ptr(ptr) {}
+		
+		~unique_ptr()
+		{
+			cleanup();
+		}
 
 		unique_ptr(const unique_ptr& other) = delete;
 		unique_ptr& operator=(const unique_ptr& other) = delete;
@@ -119,13 +124,10 @@ namespace bsc
 			other.m_ptr = nullptr;
 		}
 
-		~unique_ptr()
-		{
-			delete m_ptr;
-		}
-
 		unique_ptr& operator=(unique_ptr&& other)
 		{
+			cleanup();
+
 			m_ptr = other.m_ptr;
 			other.m_ptr = nullptr;
 			return *this;
@@ -151,5 +153,115 @@ namespace bsc
 			return nullptr;
 		}
 
+	private:
+		inline void cleanup()
+		{
+			delete m_ptr;
+		}
+	};
+
+	template<class T>
+	class shared_ptr
+	{
+		T* m_ptr;
+		uint* m_refcount;
+
+	public:
+		shared_ptr() : m_ptr(nullptr), m_refcount(new uint(0u)) {}
+		shared_ptr(T* ptr) : m_ptr(ptr), m_refcount(new uint(1u)) {}
+
+		~shared_ptr()
+		{
+			(*m_refcount)--;
+			cleanup();
+		}
+
+		shared_ptr(const shared_ptr& other)
+		{
+			m_ptr = other.m_ptr;
+			m_refcount = other.m_refcount;
+
+			if (m_ptr != nullptr)
+			{
+				(*m_refcount)++;
+			}
+		}
+
+		shared_ptr& operator=(const shared_ptr& other)
+		{
+			(*m_refcount)--;
+
+			if (m_ptr != other.m_ptr)
+			{
+				cleanup();
+			}
+
+			m_ptr = other.m_ptr;
+			m_refcount = other.m_refcount;
+
+			if (m_ptr != nullptr)
+			{
+				(*m_refcount)++;
+			}
+		}
+
+		shared_ptr(shared_ptr&& other)
+		{
+			m_ptr = other.m_ptr;
+			m_refcount = other.m_refcount;
+
+			other.m_ptr = nullptr;
+			other.m_refcount = nullptr;
+		}
+
+		shared_ptr& operator=(shared_ptr&& other)
+		{
+			if (m_ptr != other.m_ptr)
+			{
+				(*m_refcount)--;
+				cleanup();
+			}
+
+			m_ptr = other.m_ptr;
+			m_refcount = other.m_refcount;
+
+			other.m_ptr = nullptr;
+			other.m_refcount = nullptr;
+		}
+
+		T* operator->() const
+		{
+			return m_ptr;
+		}
+
+		T& operator*() const
+		{
+			return *m_ptr;
+		}
+
+		T* get() const noexcept
+		{
+			if (m_ptr)
+			{
+				return *m_ptr;
+			}
+
+			return nullptr;
+		}
+
+		uint get_count() const
+		{
+			return *m_refcount;
+		}
+
+	private:
+		inline void cleanup()
+		{
+			if (*m_refcount == 0)
+			{
+				delete m_ptr;
+				delete m_refcount;
+			}
+		}
 	};
 }
