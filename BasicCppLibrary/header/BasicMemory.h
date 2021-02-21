@@ -264,4 +264,7 @@ namespace bsc
 			}
 		}
 	};
+
+
+	// TODO weak_ptr
 }
