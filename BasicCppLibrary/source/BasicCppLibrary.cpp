@@ -72,18 +72,19 @@ int main()
     {
         std::cout << std::endl << "Memory Demo" << std::endl;
 
-        int* size = new int(10);
-        int* my_ints = new int[*size];
+        const bsc::unique_ptr<int> size = new int(10);
+        const int count = *size;
+
+        int* my_ints = new int[count];
 
         std::cout << std::endl;
 
-        for (int i = 0; i < *size; ++i)
+        for (int i = 0; i < count; ++i)
         {
             my_ints[i] = i;
             std::cout << my_ints[i] << " ";
         }
 
-        delete size;
         delete[] my_ints;
 
         std::cout << std::endl;

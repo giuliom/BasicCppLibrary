@@ -100,4 +100,56 @@ namespace bsc
 		return false;
 	}
 
+	//TODO write rest of the class and T[] version
+	template<class T>
+	class unique_ptr
+	{
+		T* m_ptr;
+
+	public:
+		unique_ptr() : ptr(nullptr) {}
+		unique_ptr(T* ptr) : m_ptr(ptr) {}
+
+		unique_ptr(const unique_ptr& other) = delete;
+		unique_ptr& operator=(const unique_ptr& other) = delete;
+
+		unique_ptr(unique_ptr&& other)
+		{
+			m_ptr = other.m_ptr;
+			other.m_ptr = nullptr;
+		}
+
+		~unique_ptr()
+		{
+			delete m_ptr;
+		}
+
+		unique_ptr& operator=(unique_ptr&& other)
+		{
+			m_ptr = other.m_ptr;
+			other.m_ptr = nullptr;
+			return *this;
+		}
+
+		T* operator->() const
+		{
+			return m_ptr;
+		}
+
+		T& operator*() const
+		{
+			return *m_ptr;
+		}
+
+		T* get() const noexcept
+		{
+			if (m_ptr)
+			{
+				return *m_ptr;
+			}
+
+			return nullptr;
+		}
+
+	};
 }
