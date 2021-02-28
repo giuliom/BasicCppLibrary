@@ -37,6 +37,8 @@ void operator delete(void* p)
 
 namespace bsc
 {
+	// ======================================= ALLOCATORS =======================================
+
 	// ----- allocator_data -----
 	class allocator_data
 	{
@@ -67,13 +69,13 @@ namespace bsc
 
 		base_allocator() noexcept = default;
 		base_allocator(const base_allocator&) noexcept = default;
-		~base_allocator() = default;
+		virtual ~base_allocator() = default;
 
 		template<class U> 
 		base_allocator(const base_allocator<U>&) noexcept {}
 
-		T* allocate(std::size_t n);
-		void deallocate(T* p, std::size_t);
+		virtual T* allocate(std::size_t n);
+		virtual void deallocate(T* p, std::size_t);
 	};
 
 	template<class T>
@@ -105,6 +107,24 @@ namespace bsc
 	{
 		return false;
 	}
+
+
+	// ----- stack_memory -----
+	class stack_memory
+	{
+		uchar*		m_buf;
+		std::size_t m_buf_size;
+		std::size_t m_offset;
+
+	public:
+		stack_memory(uchar* buf, std::size_t buf_size) 
+			: m_buf(buf)
+			, m_buf_size(buf_size)
+			, m_offset(0)
+		{}
+	};
+
+	// ======================================= SMART POINTERS =======================================
 
 	//TODO write rest of the class and T[] version
 	//TODO write make_() functions
