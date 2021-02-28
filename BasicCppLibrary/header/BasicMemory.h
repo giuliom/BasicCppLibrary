@@ -109,6 +109,7 @@ namespace bsc
 	//TODO write rest of the class and T[] version
 	//TODO write make_() functions
 	//TODO implement atomic operations
+	//TODO create common base class for shared_ptr and weak_ptr
 	//TODO testing
 
 
@@ -145,6 +146,11 @@ namespace bsc
 			return *this;
 		}
 
+		void reset()
+		{
+			cleanup();
+		}
+
 		T* operator->() const
 		{
 			return m_ptr;
@@ -169,6 +175,7 @@ namespace bsc
 		inline void cleanup()
 		{
 			delete m_ptr;
+			m_ptr = nullptr;
 		}
 	};
 
@@ -212,9 +219,9 @@ namespace bsc
 		inline void cleanup()
 		{
 #ifdef _DEBUG
-			if (m_resource_ref_count == 0)
+			if (m_block_ref_count == 0)
 			{
-				assert(m_block_ref_count == 0);
+				assert(m_resource_ref_count == 0);
 			}
 #endif // _DEBUG
 
@@ -274,7 +281,7 @@ namespace bsc
 		control_block<T>* m_cblock;
 
 	public:
-		shared_ptr() : m_ptr(nullptr), m_cblock(nullptr) {}
+		shared_ptr() : m_cblock(nullptr) {}
 		shared_ptr(T* ptr) : m_cblock(new control_block<T>(ptr)) {}
 
 		~shared_ptr()
@@ -327,6 +334,15 @@ namespace bsc
 			other.m_cblock = nullptr;
 		}
 
+		void reset()
+		{
+			if (m_cblock != nullptr)
+			{
+				m_cblock->decrement_res_count();
+				m_cblock = nullptr;
+			}
+		}
+
 		T* operator->() const
 		{
 			return m_cblock->m_resource;
@@ -361,37 +377,79 @@ namespace bsc
 		control_block<T>* m_cblock;
 
 	public:
+		weak_ptr() : m_cblock(nullptr) {}
 		weak_ptr(shared_ptr<T> shared) : m_cblock(shared.m_cblock)
 		{
-			m_cblock->increment_block_count();
+			if (m_cblock != nullptr)
+			{
+				m_cblock->increment_block_count();
+			}
 		}
 
 		~weak_ptr()
 		{
-			m_cblock->decrement_block_count();
+			if (m_cblock != nullptr)
+			{
+				m_cblock->decrement_block_count();
+			}
 		}
 
 		weak_ptr& operator=(weak_ptr<T> const& other)
 		{
-			m_cblock->decrement_block_count();
+			if (m_cblock != nullptr)
+			{
+				m_cblock->decrement_block_count();
+			}
+
 			m_cblock = other.m_cblock;
-			m_cblock->increment_block_count();
+
+			if (m_cblock != nullptr)
+			{
+				m_cblock->increment_block_count();
+			}
 		}
 
+		void reset()
+		{
+			if (m_cblock != nullptr)
+			{
+				m_cblock->decrement_block_count();
+				m_cblock = nullptr;
+			}
+		}
+
+		T* operator->() const
+		{
+			return m_cblock->m_resource;
+		}
+
+		T& operator*() const
+		{
+			return *m_cblock->m_resource;
+		}
+
+		T* get() const noexcept
+		{
+			if (m_cblock)
+			{
+				return m_cblock->m_resource;
+			}
+
+			return nullptr;
+		}
 
 		long get_count() const
 		{
-			return m_cblock->get_res_count();
+			return m_cblock ? m_cblock->get_res_count() : 0;
 		}
 
 		bool expired() const
 		{
-			m_cblock->get_res_count() == 0;
+			return m_cblock == nullptr || m_cblock->get_res_count() == 0;
 		}
 
 		// TODO
 		shared_ptr<T> lock() const {}
-		void reset() {}
 		void swap(weak_ptr<T>& b) {}
 	};
 }

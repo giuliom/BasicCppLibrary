@@ -90,6 +90,7 @@ int main()
         std::cout << std::endl;
 
         bsc::shared_ptr<float> sh0 = new float(3.14f);
+        bsc::weak_ptr<float> weak_sh0(sh0);
         {
             bsc::shared_ptr<float> sh1 = sh0;
             std::vector<int, bsc::base_allocator<int>> base_allocator_vector(5, 1);
@@ -102,7 +103,12 @@ int main()
             }
         }
 
-        std::cout << std::endl << *sh0;
+        std::cout << std::endl << *sh0 << std::endl;
+
+        sh0.reset();
+
+        std::string expiration = weak_sh0.expired() ? "Expired shared_ptr" : std::to_string(*weak_sh0);
+        std::cout << std::endl << expiration;
 
         std::cout << std::endl;
 
