@@ -2,6 +2,8 @@
 
 //TODO: more custom allocators, memory allocation strategies, tests...
 
+
+// ----- custom global new -----
 void* operator new(std::size_t size)
 {
 	if (size == 0) // Must always allocate at least one byte
@@ -22,6 +24,8 @@ void* operator new(std::size_t size)
 	throw std::bad_alloc{};
 }
 
+
+// ----- custom global delete -----
 void operator delete(void* p)
 {
 #ifdef _DEBUG
@@ -33,21 +37,23 @@ void operator delete(void* p)
 
 namespace bsc
 {
+	// ----- allocator_data -----
 	class allocator_data
 	{
 	protected:
-		static uint allocations;
-		static uint deallocations;
+		static long allocations;
+		static long deallocations;
 
 	public:
-		static uint num_allocations() { return allocations; }
-		static uint num_deallocations() { return deallocations; }
+		static long num_allocations() { return allocations; }
+		static long num_deallocations() { return deallocations; }
 	};
 
-	uint allocator_data::allocations = 0;
-	uint allocator_data::deallocations = 0;
+	long allocator_data::allocations = 0;
+	long allocator_data::deallocations = 0;
 
-	// base_allocator
+
+	// ----- base_allocator -----
 	template<class T>
 	class base_allocator 
 #ifdef _DEBUG
@@ -101,6 +107,12 @@ namespace bsc
 	}
 
 	//TODO write rest of the class and T[] version
+	//TODO write make_() functions
+	//TODO implement atomic operations
+	//TODO testing
+
+
+	// ----- unique_ptr -----
 	template<class T>
 	class unique_ptr
 	{
@@ -160,111 +172,226 @@ namespace bsc
 		}
 	};
 
+
+	template<class T>
+	class shared_ptr;
+
+	template< class T>
+	class weak_ptr;
+
+	// ----- control_block -----
+	template<class T>
+	class control_block
+	{
+		friend class shared_ptr<T>;
+		friend class weak_ptr<T>;
+
+		long m_resource_ref_count;
+		long m_block_ref_count;
+		T* m_resource;
+
+		control_block(T* resource)
+			: m_resource_ref_count(1)
+			, m_block_ref_count(1)
+			, m_resource(resource)
+		{}
+
+		control_block(const control_block& other) = delete;
+		control_block& operator=(const control_block& other) = delete;
+
+		~control_block()
+		{
+			delete m_resource;
+
+#ifdef _DEBUG
+			assert(m_resource_ref_count == 0);
+			assert(m_block_ref_count == 0);
+#endif // _DEBUG
+		}
+
+		inline void cleanup()
+		{
+#ifdef _DEBUG
+			if (m_resource_ref_count == 0)
+			{
+				assert(m_block_ref_count == 0);
+			}
+#endif // _DEBUG
+
+			if (m_resource_ref_count == 0)
+			{
+				delete m_resource;
+				m_resource = nullptr;
+			}
+
+			if (m_block_ref_count == 0)
+			{
+				delete this;
+			}
+		}
+
+		void increment_res_count()
+		{
+			++m_block_ref_count;
+			++m_resource_ref_count;
+		}
+
+		void decrement_res_count()
+		{
+			--m_block_ref_count;
+			--m_resource_ref_count;
+			cleanup();
+		}
+
+		void increment_block_count()
+		{
+			++m_block_ref_count;
+		}
+
+		void decrement_block_count()
+		{
+			--m_block_ref_count;
+			cleanup();
+		}
+
+		long get_res_count() const
+		{
+			return m_resource_ref_count;
+		}
+
+		long get_block_count() const
+		{
+			return m_block_ref_count;
+		}
+	};
+
+	// ----- shared_ptr -----
 	template<class T>
 	class shared_ptr
 	{
-		T* m_ptr;
-		uint* m_refcount;
+		friend class weak_ptr<T>;
+
+		control_block<T>* m_cblock;
 
 	public:
-		shared_ptr() : m_ptr(nullptr), m_refcount(new uint(0u)) {}
-		shared_ptr(T* ptr) : m_ptr(ptr), m_refcount(new uint(1u)) {}
+		shared_ptr() : m_ptr(nullptr), m_cblock(nullptr) {}
+		shared_ptr(T* ptr) : m_cblock(new control_block<T>(ptr)) {}
 
 		~shared_ptr()
 		{
-			(*m_refcount)--;
-			cleanup();
+			if (m_cblock != nullptr)
+			{
+				m_cblock->decrement_res_count();
+			}
 		}
 
 		shared_ptr(const shared_ptr& other)
 		{
-			m_ptr = other.m_ptr;
-			m_refcount = other.m_refcount;
+			m_cblock = other.m_cblock;
 
-			if (m_ptr != nullptr)
+			if (m_cblock != nullptr)
 			{
-				(*m_refcount)++;
+				m_cblock->increment_res_count();
 			}
 		}
 
 		shared_ptr& operator=(const shared_ptr& other)
 		{
-			(*m_refcount)--;
-
-			if (m_ptr != other.m_ptr)
+			if (m_cblock != nullptr)
 			{
-				cleanup();
+				m_cblock->decrement_res_count();
 			}
 
-			m_ptr = other.m_ptr;
-			m_refcount = other.m_refcount;
+			m_cblock = other.m_cblock;
 
-			if (m_ptr != nullptr)
+			if (m_cblock != nullptr)
 			{
-				(*m_refcount)++;
+				m_cblock->increment_res_count();
 			}
 		}
 
 		shared_ptr(shared_ptr&& other)
 		{
-			m_ptr = other.m_ptr;
-			m_refcount = other.m_refcount;
-
-			other.m_ptr = nullptr;
-			other.m_refcount = nullptr;
+			m_cblock = other.m_cblock;
+			other.m_cblock = nullptr;
 		}
 
 		shared_ptr& operator=(shared_ptr&& other)
 		{
-			if (m_ptr != other.m_ptr)
+			if (m_cblock != other.m_cblock)
 			{
-				(*m_refcount)--;
-				cleanup();
+				m_cblock->decrement_res_count();
 			}
 
-			m_ptr = other.m_ptr;
-			m_refcount = other.m_refcount;
-
-			other.m_ptr = nullptr;
-			other.m_refcount = nullptr;
+			m_cblock = other.m_cblock;
+			other.m_cblock = nullptr;
 		}
 
 		T* operator->() const
 		{
-			return m_ptr;
+			return m_cblock->m_resource;
 		}
 
 		T& operator*() const
 		{
-			return *m_ptr;
+			return *m_cblock->m_resource;
 		}
 
 		T* get() const noexcept
 		{
-			if (m_ptr)
+			if (m_cblock)
 			{
-				return *m_ptr;
+				return m_cblock->m_resource;
 			}
 
 			return nullptr;
 		}
 
-		uint get_count() const
+		long get_count() const
 		{
-			return *m_refcount;
-		}
-
-	private:
-		inline void cleanup()
-		{
-			if (*m_refcount == 0)
-			{
-				delete m_ptr;
-				delete m_refcount;
-			}
+			return m_cblock->get_res_count();
 		}
 	};
 
 
-	// TODO weak_ptr
+	// ----- weak_ptr -----
+	template<class T>
+	class weak_ptr
+	{
+		control_block<T>* m_cblock;
+
+	public:
+		weak_ptr(shared_ptr<T> shared) : m_cblock(shared.m_cblock)
+		{
+			m_cblock->increment_block_count();
+		}
+
+		~weak_ptr()
+		{
+			m_cblock->decrement_block_count();
+		}
+
+		weak_ptr& operator=(weak_ptr<T> const& other)
+		{
+			m_cblock->decrement_block_count();
+			m_cblock = other.m_cblock;
+			m_cblock->increment_block_count();
+		}
+
+
+		long get_count() const
+		{
+			return m_cblock->get_res_count();
+		}
+
+		bool expired() const
+		{
+			m_cblock->get_res_count() == 0;
+		}
+
+		// TODO
+		shared_ptr<T> lock() const {}
+		void reset() {}
+		void swap(weak_ptr<T>& b) {}
+	};
 }

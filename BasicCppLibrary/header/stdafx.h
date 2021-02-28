@@ -16,6 +16,7 @@
 #include <chrono>
 #include <thread>
 #include <regex>
+#include <cassert>
 
 
 // TODO: reference additional headers your program requires here

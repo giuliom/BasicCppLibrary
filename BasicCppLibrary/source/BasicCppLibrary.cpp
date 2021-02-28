@@ -17,7 +17,7 @@ int main()
     std::cout<< "--- BasicCppLibrary Demo ---"<<std::endl;
 
     // --------------------------------------- Algorithm Demo ---------------------------------------
-
+    std::weak_ptr<int> ptr;
     {
         std::cout << std::endl << "Algorithm Demo" << std::endl;
         std::vector<int> v = { -1, 0, 3, 5, 9, 12 };
@@ -90,7 +90,6 @@ int main()
         std::cout << std::endl;
 
         bsc::shared_ptr<float> sh0 = new float(3.14f);
-
         {
             bsc::shared_ptr<float> sh1 = sh0;
             std::vector<int, bsc::base_allocator<int>> base_allocator_vector(5, 1);
