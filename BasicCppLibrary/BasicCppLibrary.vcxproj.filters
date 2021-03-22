@@ -39,6 +39,12 @@
     <ClInclude Include="header\BasicRegex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\BasicConcurrency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\BasicEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\BasicCppLibrary.cpp">

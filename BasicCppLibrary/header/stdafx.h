@@ -15,8 +15,10 @@
 #include <iterator>
 #include <chrono>
 #include <thread>
+#include <atomic>
 #include <regex>
 #include <cassert>
+#include <bitset>
 
 
 // TODO: reference additional headers your program requires here
