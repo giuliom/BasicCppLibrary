@@ -19,6 +19,7 @@
 #include <regex>
 #include <cassert>
 #include <bitset>
+#include <mutex>
 
 
 // TODO: reference additional headers your program requires here

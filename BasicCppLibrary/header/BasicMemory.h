@@ -15,7 +15,7 @@ void* operator new(std::size_t size)
 	if (p)
 	{
 #ifdef _DEBUG
-		std::cout << std::endl << "Allocated " << size << " bytes at " << p;
+//		std::cout << std::endl << "Allocated " << size << " bytes at " << p;
 #endif // _DEBUG
 
 		return p;
@@ -26,13 +26,12 @@ void* operator new(std::size_t size)
 
 
 // ----- custom global delete -----
-void operator delete(void* p)
+void operator delete(void* p) noexcept
 {
 #ifdef _DEBUG
-	std::cout << std::endl << "Deallocated bytes at " << p;
+//	std::cout << std::endl << "Deallocated bytes at " << p;
 #endif // _DEBUG
 	free(p);
-	p = nullptr;
 }
 
 namespace bsc
