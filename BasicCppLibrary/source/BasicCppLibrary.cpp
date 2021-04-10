@@ -8,8 +8,15 @@
 #include "BasicChrono.h"
 #include "BasicRegex.h"
 #include "BasicMemory.h"
+#include "BasicConcurrency.h"
+#include "BasicEnum.h"
 
 using namespace std::chrono_literals;
+
+namespace
+{
+    std::mutex g_coutMtx;
+}
 
 int main()
 {
@@ -68,7 +75,27 @@ int main()
         std::cout << std::endl;
     }
 
+    // --------------------------------------- Enum Class Demo -----------------------------------------
+
+    {
+        std::cout << std::endl << "Enum Class Demo" << std::endl;
+
+        enum class TEST_ENUM
+        {
+            A, B, C, COUNT
+        };
+
+        bsc::bit_enum<TEST_ENUM, TEST_ENUM::COUNT> be_test;
+
+        be_test[TEST_ENUM::B] = true;
+
+        be_test[TEST_ENUM::C] = be_test[TEST_ENUM::B];
+
+        std::cout << "Size: " << be_test.size() << std::endl;
+    }
+
     // --------------------------------------- Memory Demo -----------------------------------------
+    
     {
         std::cout << std::endl << "Memory Demo" << std::endl;
 
@@ -115,6 +142,74 @@ int main()
 #ifdef _DEBUG
         std::cout << "Allocations: " << bsc::base_allocator<int>::num_allocations() << " deallocations: " << bsc::base_allocator<int>::num_deallocations() << std::endl;
 #endif // _DEBUG
+    }
+
+    // --------------------------------------- Concurrency Demo -----------------------------------------
+    
+    {
+        std::cout << std::endl << "Concurrency Demo" << std::endl;
+
+        //TODO write proper demo
+        bsc::lock_free_queue<uint> lfq;
+        bsc::lock_free_ring_buffer<uint> lfrb(5);
+
+        auto producer = [](auto* data_structure, uint iterations, const std::string& name)
+        {
+            while (iterations > 0)
+            {
+                bool success = data_structure->produce(iterations);
+                
+                if (success)
+                {
+                    --iterations;
+                }
+            }
+
+            std::scoped_lock<std::mutex> lock(g_coutMtx);
+            std::cout << std::endl << "Producer Thread " << name << ": data successfully produced" << std::endl;
+        };
+
+        auto consumer = [](auto* data_structure, uint expected_iterations, const std::string& name)
+        {
+            uint prev_value = expected_iterations + 1;
+
+            while (expected_iterations > 0)
+            {
+                uint value;
+                bool success = data_structure->consume(value);
+
+                if (success)
+                {
+                    if (value != prev_value - 1)
+                    {
+                        std::cout << std::endl << "Consumer Thread " << name <<": Wrong data at iteration " << expected_iterations << std::endl;
+                        return;
+                    }
+
+                    prev_value = value;
+                    --expected_iterations;
+                }
+            }
+
+            std::scoped_lock<std::mutex> lock(g_coutMtx);
+            std::cout << std::endl << "Consumer Thread " << name << ": data successfully consumed" << std::endl;
+        };
+
+        // Lock Free Queue Test
+        auto lfq_producer = std::thread(producer, &lfq, 10u, "lock_free_queue");
+        auto lfq_consumer = std::thread(consumer, &lfq, 10u, "lock_free_queue");
+
+        lfq_producer.join();
+        lfq_consumer.join();
+
+        // Lock Free Ring Buffer Test
+        auto lfrb_producer = std::thread(producer, &lfrb, 25u, "lock_free_ring_buffer");
+        auto lfrb_consumer = std::thread(consumer, &lfrb, 25u, "lock_free_ring_buffer");
+
+        lfrb_producer.join();
+        lfrb_consumer.join();
+
+        std::cin.get();
     }
 
     // ------------------------------------------------------------------------------------------------
