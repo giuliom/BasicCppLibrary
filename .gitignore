@@ -35,14 +35,20 @@ debug/
 release/
 LibDebug/
 LibRelease/
+BasicCppLibrary/out/
 
-# Visual Studio 2015 database file
+# Cmake
+BasicCppLibrary/CMakeFiles/
+BasicCppLibrary/CMakeCache.txt
+BasicCppLibrary/_deps
+
+# Visual Studio 2022 database file
 
 *.VC.db
 *.VC.VC.opendb
 
-# Visual Studio 2015 Options file
+# Visual Studio 2022 Options file
 *.suo
 
-# Visual Studio 2017 Settings
+# Visual Studio 2022 Settings
 .vs

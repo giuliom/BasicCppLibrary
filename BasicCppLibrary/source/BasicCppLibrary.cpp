@@ -1,7 +1,20 @@
 // BasicCppLibrary.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+#include <stdio.h>
+#include <tchar.h>
+#include <limits.h>
+#include <iostream>
+#include <vector>
+#include <iterator>
+#include <chrono>
+#include <thread>
+#include <atomic>
+
+#include <cassert>
+#include <bitset>
+#include <mutex>
+
 #include "BasicGlobal.h"
 #include "BasicAlgorithm.h"
 #include "BasicMath.h"

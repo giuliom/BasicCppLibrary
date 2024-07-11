@@ -1,7 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
-
 namespace bsc
 {
 	template<typename ENUM_TYPE>

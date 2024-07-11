@@ -1,7 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
-
 namespace bsc
 {
 	// FIFO single producer, single consumer
