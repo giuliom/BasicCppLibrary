@@ -5,14 +5,6 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
-#include <chrono>
-#include <thread>
-#include <atomic>
-
-#include <cassert>
-#include <bitset>
-#include <mutex>
-
 #include "BasicGlobal.h"
 #include "BasicAlgorithm.h"
 #include "BasicMath.h"

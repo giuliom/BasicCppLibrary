@@ -1,5 +1,7 @@
 #pragma once
 
+#include <bitset>
+
 namespace bsc
 {
 	template<typename ENUM_TYPE>

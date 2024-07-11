@@ -1,5 +1,9 @@
 #pragma once
 
+#include <thread>
+#include <atomic>
+#include <mutex>
+
 namespace bsc
 {
 	// FIFO single producer, single consumer

@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <cassert>
 
 //TODO: more custom allocators, memory allocation strategies, tests...
 
@@ -141,7 +141,7 @@ namespace bsc
 		T* m_ptr;
 
 	public:
-		unique_ptr() : ptr(nullptr) {}
+		unique_ptr() : m_ptr(nullptr) {}
 		unique_ptr(T* ptr) : m_ptr(ptr) {}
 		
 		~unique_ptr()
