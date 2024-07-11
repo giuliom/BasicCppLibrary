@@ -106,7 +106,7 @@ namespace bsc
 
 		// In place merge of the two ordered lists of items
 		// Swap element of a with smaller element of b if it's greater, then 
-		while (a_it != mid && b_begin != b_end)
+		while (a_it != mid)
 		{
 			if (*a_it < *b_begin)
 			{	
@@ -117,7 +117,7 @@ namespace bsc
 				swap_value(a_it, b_begin);
 
 				auto b0 = *b_begin;
-				Iterator b_it = b_begin;
+				Iterator b_it = b_begin + 1;
 
 				// Move the new first val of b to its correct position to maintain the order
 				while (b_it != b_end && *b_it < b0)
