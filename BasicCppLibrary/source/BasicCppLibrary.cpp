@@ -2,8 +2,6 @@
 //
 
 #include <stdio.h>
-#include <tchar.h>
-#include <limits.h>
 #include <iostream>
 #include <vector>
 #include <iterator>
