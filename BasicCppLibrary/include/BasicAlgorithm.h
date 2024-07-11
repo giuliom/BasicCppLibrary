@@ -1,5 +1,7 @@
 #pragma once
 
+#include <BasicGlobal.h>
+
 namespace bsc
 {
 	template<typename Iterator>
@@ -104,14 +106,20 @@ namespace bsc
 
 		// In place merge of the two ordered lists of items
 		// Swap element of a with smaller element of b if it's greater, then 
-		while (a_it != mid)
+		while (a_it != mid && b_begin != b_end)
 		{
-			if (*a_it > *b_begin)
+			if (*a_it < *b_begin)
+			{	
+				++a_it;
+			}
+			else
 			{
 				swap_value(a_it, b_begin);
 
+				auto b0 = *b_begin;
+				Iterator b_it = b_begin;
+
 				// Move the new first val of b to its correct position to maintain the order
-				Iterator b_it = b_begin + 1;
 				while (b_it != b_end && *b_it < b0)
 				{
 					*(b_it - 1) = *b_it;
@@ -121,7 +129,7 @@ namespace bsc
 				*(b_it - 1) = b0;
 			}
 
-			++a_it;
+			
 		}
 	}
 

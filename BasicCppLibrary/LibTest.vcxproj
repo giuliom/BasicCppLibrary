@@ -22,11 +22,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F8D13D40-E9B9-3A9D-B28C-5586FFE0A8EB}</ProjectGuid>
+    <ProjectGuid>{DC6C924E-F169-3B01-A599-C0B1C991AF9B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
-    <ProjectName>BasicCppLibrary</ProjectName>
+    <ProjectName>LibTest</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -60,26 +60,26 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicCppLibrary.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicCppLibrary</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">LibTest.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">LibTest</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BasicCppLibrary.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BasicCppLibrary</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">LibTest.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">LibTest</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">BasicCppLibrary.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">BasicCppLibrary</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">LibTest.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">LibTest</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">BasicCppLibrary.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">BasicCppLibrary</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">LibTest.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">LibTest</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
@@ -87,10 +87,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest/include" /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
@@ -107,24 +109,36 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -D TEST_TARGET=LibTest -D TEST_EXECUTABLE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Debug/LibTest.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=LibTest_TESTS -D CTEST_FILE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/CMake/share/cmake-3.30/Modules/GoogleTestAddTests.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\Debug\gtest_main.lib;lib\Debug\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Debug/BasicCppLibrary.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Debug/BasicCppLibrary.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Debug/LibTest.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Debug/LibTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -134,9 +148,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest/include" /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
@@ -155,24 +171,36 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -D TEST_TARGET=LibTest -D TEST_EXECUTABLE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Release/LibTest.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=LibTest_TESTS -D CTEST_FILE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/CMake/share/cmake-3.30/Modules/GoogleTestAddTests.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\Release\gtest_main.lib;lib\Release\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Release/BasicCppLibrary.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Release/BasicCppLibrary.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Release/LibTest.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/Release/LibTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -182,9 +210,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest/include" /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
@@ -203,24 +233,36 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -D TEST_TARGET=LibTest -D TEST_EXECUTABLE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/MinSizeRel/LibTest.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=LibTest_TESTS -D CTEST_FILE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/CMake/share/cmake-3.30/Modules/GoogleTestAddTests.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\MinSizeRel\gtest_main.lib;lib\MinSizeRel\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/MinSizeRel/BasicCppLibrary.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/MinSizeRel/BasicCppLibrary.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/MinSizeRel/LibTest.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/MinSizeRel/LibTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -230,10 +272,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest/include" /external:I "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/_deps/googletest-src/googletest"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
@@ -250,24 +294,36 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest\include;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -D TEST_TARGET=LibTest -D TEST_EXECUTABLE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/RelWithDebInfo/LibTest.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=LibTest_TESTS -D CTEST_FILE=C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/CMake/share/cmake-3.30/Modules/GoogleTestAddTests.cmake"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib\RelWithDebInfo\gtest_main.lib;lib\RelWithDebInfo\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/RelWithDebInfo/BasicCppLibrary.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/RelWithDebInfo/BasicCppLibrary.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/RelWithDebInfo/LibTest.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/RelWithDebInfo/LibTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -332,16 +388,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicAlgorithm.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicChrono.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicConcurrency.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicEnum.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicGlobal.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicMath.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicMemory.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicRegex.h" />
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\targetver.h" />
-    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\source\BasicCppLibrary.cpp" />
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestAlgorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\ZERO_CHECK.vcxproj">
@@ -349,6 +396,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googletest\gtest.vcxproj">
+      <Project>{02ABF33C-4D5F-316D-8DF6-CA0F76757775}</Project>
+      <Name>gtest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googletest\gtest_main.vcxproj">
+      <Project>{08A05ACF-61C9-3F1A-B4AD-A29BF054A48E}</Project>
+      <Name>gtest_main</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
