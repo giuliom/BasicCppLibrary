@@ -143,6 +143,7 @@ namespace bsc
 
 	public:
 		unique_ptr() : m_ptr(nullptr) {}
+		constexpr unique_ptr(std::nullptr_t) noexcept : m_ptr(nullptr) {}
 		unique_ptr(T* ptr) : m_ptr(ptr) {}
 		
 		~unique_ptr()
@@ -304,6 +305,7 @@ namespace bsc
 
 	public:
 		shared_ptr() : m_cblock(nullptr) {}
+		constexpr shared_ptr(std::nullptr_t) noexcept : m_cblock(nullptr) {}
 		shared_ptr(T* ptr) : m_cblock(new control_block<T>(ptr)) {}
 
 		~shared_ptr()
@@ -400,6 +402,7 @@ namespace bsc
 
 	public:
 		weak_ptr() : m_cblock(nullptr) {}
+		constexpr weak_ptr(std::nullptr_t) noexcept : m_cblock(nullptr) {}
 		weak_ptr(shared_ptr<T> shared) : m_cblock(shared.m_cblock)
 		{
 			if (m_cblock != nullptr)
