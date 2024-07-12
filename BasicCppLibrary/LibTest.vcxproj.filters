@@ -4,6 +4,24 @@
     <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestChrono.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\TestConcurrency.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestEnum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestMemory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestRegex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeLists.txt" />

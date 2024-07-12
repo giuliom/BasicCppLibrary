@@ -47,7 +47,7 @@ int main()
         std::this_thread::sleep_for(10ms);
         const auto now = std::chrono::high_resolution_clock::now();
 
-        float milliseconds = bsc::chrono::convert_chrono_duration<float, std::chrono::milliseconds>(now - begin);
+        const float milliseconds = bsc::chrono::convert_chrono_duration<float, std::chrono::milliseconds>(now - begin);
         std::cout << milliseconds << " ms\n";
     }
 
@@ -78,6 +78,74 @@ int main()
         std::cout << std::endl;
     }
 
+    // --------------------------------------- Concurrency Demo -----------------------------------------
+
+    {
+        std::cout << std::endl << "Concurrency Demo" << std::endl;
+
+        //TODO write proper demo
+        bsc::lock_free_queue<uint> lfq;
+        bsc::lock_free_ring_buffer<uint> lfrb(5);
+
+        auto producer = [](auto* data_structure, uint iterations, const std::string& name)
+            {
+                while (iterations > 0)
+                {
+                    bool success = data_structure->produce(iterations);
+
+                    if (success)
+                    {
+                        --iterations;
+                    }
+                }
+
+                std::scoped_lock<std::mutex> lock(g_coutMtx);
+                std::cout << std::endl << "Producer Thread " << name << ": data successfully produced" << std::endl;
+            };
+
+        auto consumer = [](auto* data_structure, uint expected_iterations, const std::string& name)
+            {
+                uint prev_value = expected_iterations + 1;
+
+                while (expected_iterations > 0)
+                {
+                    uint value;
+                    bool success = data_structure->consume(value);
+
+                    if (success)
+                    {
+                        if (value != prev_value - 1)
+                        {
+                            std::cout << std::endl << "Consumer Thread " << name << ": Wrong data at iteration " << expected_iterations << std::endl;
+                            return;
+                        }
+
+                        prev_value = value;
+                        --expected_iterations;
+                    }
+                }
+
+                std::scoped_lock<std::mutex> lock(g_coutMtx);
+                std::cout << std::endl << "Consumer Thread " << name << ": data successfully consumed" << std::endl;
+            };
+
+        // Lock Free Queue Test
+        auto lfq_producer = std::thread(producer, &lfq, 10u, "lfq_producer");
+        auto lfq_consumer = std::thread(consumer, &lfq, 10u, "lfq_consumer");
+
+        lfq_producer.join();
+        lfq_consumer.join();
+
+        // Lock Free Ring Buffer Test
+        auto lfrb_producer = std::thread(producer, &lfrb, 10u, "lfrb_producer");
+        auto lfrb_consumer = std::thread(consumer, &lfrb, 10u, "lfrb_consumer");
+
+        lfrb_producer.join();
+        lfrb_consumer.join();
+
+        std::cin.get();
+    }
+
     // --------------------------------------- Enum Class Demo -----------------------------------------
 
     {
@@ -95,6 +163,19 @@ int main()
         be_test[TEST_ENUM::C] = be_test[TEST_ENUM::B];
 
         std::cout << "Size: " << be_test.size() << std::endl;
+    }
+
+    // --------------------------------------- Math Demo -----------------------------------------
+
+    {
+        std::cout << std::endl << "Math Demo" << std::endl;
+
+        std::cout << "First 10 Fibonacci Numbers: ";
+        for (int i = 0; i < 10; i++)
+        {
+            std::cout << bsc::math::fibonacci<int>(i) << " ";
+        }
+        std::cout << std::endl;
     }
 
     // --------------------------------------- Memory Demo -----------------------------------------
@@ -145,74 +226,6 @@ int main()
 #ifdef _DEBUG
         std::cout << "Allocations: " << bsc::base_allocator<int>::num_allocations() << " deallocations: " << bsc::base_allocator<int>::num_deallocations() << std::endl;
 #endif // _DEBUG
-    }
-
-    // --------------------------------------- Concurrency Demo -----------------------------------------
-    
-    {
-        std::cout << std::endl << "Concurrency Demo" << std::endl;
-
-        //TODO write proper demo
-        bsc::lock_free_queue<uint> lfq;
-        bsc::lock_free_ring_buffer<uint> lfrb(5);
-
-        auto producer = [](auto* data_structure, uint iterations, const std::string& name)
-        {
-            while (iterations > 0)
-            {
-                bool success = data_structure->produce(iterations);
-                
-                if (success)
-                {
-                    --iterations;
-                }
-            }
-
-            std::scoped_lock<std::mutex> lock(g_coutMtx);
-            std::cout << std::endl << "Producer Thread " << name << ": data successfully produced" << std::endl;
-        };
-
-        auto consumer = [](auto* data_structure, uint expected_iterations, const std::string& name)
-        {
-            uint prev_value = expected_iterations + 1;
-
-            while (expected_iterations > 0)
-            {
-                uint value;
-                bool success = data_structure->consume(value);
-
-                if (success)
-                {
-                    if (value != prev_value - 1)
-                    {
-                        std::cout << std::endl << "Consumer Thread " << name <<": Wrong data at iteration " << expected_iterations << std::endl;
-                        return;
-                    }
-
-                    prev_value = value;
-                    --expected_iterations;
-                }
-            }
-
-            std::scoped_lock<std::mutex> lock(g_coutMtx);
-            std::cout << std::endl << "Consumer Thread " << name << ": data successfully consumed" << std::endl;
-        };
-
-        // Lock Free Queue Test
-        auto lfq_producer = std::thread(producer, &lfq, 10u, "lock_free_queue");
-        auto lfq_consumer = std::thread(consumer, &lfq, 10u, "lock_free_queue");
-
-        lfq_producer.join();
-        lfq_consumer.join();
-
-        // Lock Free Ring Buffer Test
-        auto lfrb_producer = std::thread(producer, &lfrb, 25u, "lock_free_ring_buffer");
-        auto lfrb_consumer = std::thread(consumer, &lfrb, 25u, "lock_free_ring_buffer");
-
-        lfrb_producer.join();
-        lfrb_consumer.join();
-
-        std::cin.get();
     }
 
     // ------------------------------------------------------------------------------------------------

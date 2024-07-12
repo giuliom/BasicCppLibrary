@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <BasicGlobal.h>
 
 //TODO: more custom allocators, memory allocation strategies, tests...
 
@@ -428,6 +429,8 @@ namespace bsc
 			{
 				m_cblock->increment_block_count();
 			}
+
+			return *this;
 		}
 
 		void reset()
