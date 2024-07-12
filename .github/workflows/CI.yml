@@ -3,7 +3,7 @@
 name: Continuous Integration
 
 on:
-  [push, pull_request]
+  [push, pull_request, workflow_dispatch]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
