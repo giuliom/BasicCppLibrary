@@ -77,8 +77,8 @@ namespace bsc
 	{
 		T* m_data;
 		size_t m_capacity;
-		size_t m_front; // First used space
-		size_t m_tail; // Space after the last used, always after front unless empty
+		std::atomic<size_t> m_front; // First used space
+		std::atomic<size_t> m_tail; // Space after the last used, always after front unless empty
 
 	public:
 
@@ -91,27 +91,30 @@ namespace bsc
 		size_t capacity() const { return m_capacity - 1; }
 		size_t size() const
 		{
-			if (m_tail >= m_front)
+			const size_t tail = m_tail.load(std::memory_order_relaxed);
+			const size_t front = m_front.load(std::memory_order_relaxed);
+
+			if (tail >= front)
 			{
-				return m_tail - m_front;
+				return tail - front;
 			}
 			else
 			{
-				m_capacity - m_front + m_tail;
+				return capacity - front + tail;
 			}
 		}
 
 		bool produce(const T& value)
 		{
 			//Owns m_tail
-			size_t next = (m_tail + 1) % m_capacity;
+			size_t tail = m_tail.load(std::memory_order_relaxed);
+			size_t next = (tail + 1) % m_capacity;
 
 			// Buffer is not full, we don't use the last space
-			if (next != m_front)
+			if (next != m_front.load(std::memory_order_relaxed))
 			{
-				m_data[m_tail] = value;
-				// Memory Barrier HERE
-				m_tail = next;
+				m_data[tail] = value;
+				m_tail.store(next, std::memory_order_release);
 				return true;
 			}
 
@@ -121,12 +124,12 @@ namespace bsc
 		bool consume(T& out_result)
 		{
 			// Owns m_front
-			if (m_front != m_tail) // Empty buffer
+			size_t front = m_front.load(::std::memory_order_relaxed);
+			if (front != m_tail.load(std::memory_order_acquire)) // Empty buffer
 			{
-				out_result = m_data[m_front];
-				m_data[m_front] = 0;
-				// Memory Barrier HERE
-				m_front = (m_front + 1) % m_capacity;
+				out_result = m_data[front];
+				m_data[front] = 0;
+				m_front.store((front + 1) % m_capacity, std::memory_order_release);
 				return true;
 			}
 
