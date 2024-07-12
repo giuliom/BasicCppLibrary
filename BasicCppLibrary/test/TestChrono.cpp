@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <BasicChrono.h>
+#include <thread>
 
 #define SUITE_NAME TestChrono
 
