@@ -6,41 +6,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicAlgorithm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicChrono.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicConcurrency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicGlobal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicMemory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\BasicRegex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\include\targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{2E0B0C8A-B193-3184-A846-810AB4ED6B5F}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{CDB8739A-57CD-3422-BCA4-321511543EF7}</UniqueIdentifier>
     </Filter>

@@ -173,6 +173,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\BasicCppDemo.vcxproj">
+      <Project>{FD6C4C21-FEEF-3504-8A3A-3FA9FE9AE32B}</Project>
+      <Name>BasicCppDemo</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\BasicCppLibrary.vcxproj">
       <Project>{F8D13D40-E9B9-3A9D-B28C-5586FFE0A8EB}</Project>
       <Name>BasicCppLibrary</Name>

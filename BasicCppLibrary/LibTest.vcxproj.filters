@@ -7,7 +7,7 @@
     <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestChrono.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test\TestConcurrency.cpp">
+    <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestConcurrency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\test\TestEnum.cpp">

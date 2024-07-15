@@ -30,4 +30,20 @@ gtest_discover_tests(LibTest)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 file(GLOB SOURCES "source/*.cpp" "include/*.h")
 
-add_executable(BasicCppLibrary ${SOURCES})
+add_executable(BasicCppDemo ${SOURCES})
+
+# Add the library target
+add_library(BasicCppLibrary STATIC source/BasicCppLibrary.cpp)
+
+# Specify the include directory for the target
+target_include_directories(BasicCppLibrary PUBLIC include)
+
+# Platform-specific settings
+if(WIN32)
+    message(STATUS "Configuring for Windows")
+elseif(UNIX)
+    message(STATUS "Configuring for Linux")
+endif()
+
+# Install rules
+install(TARGETS BasicCppLibrary DESTINATION lib)
