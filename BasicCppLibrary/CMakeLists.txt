@@ -1,10 +1,12 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.19)
 project(BasicCppLibrary)
 
 # GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Avoid warnings by using new policy
+cmake_policy(SET CMP0135 NEW)
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -16,7 +18,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-file (GLOB TESTS "test/*.h" "test/*.cpp")
+file (GLOB TESTS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
 add_executable(LibTest ${TESTS})
 
 target_link_libraries(
@@ -27,16 +29,15 @@ target_link_libraries(
 include(GoogleTest)
 gtest_discover_tests(LibTest)
 
+# Library setup
 include_directories(${PROJECT_SOURCE_DIR}/include)
-file(GLOB SOURCES "source/*.cpp" "include/*.h")
-
-add_executable(BasicCppDemo ${SOURCES})
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 
 # Add the library target
-add_library(BasicCppLibrary STATIC source/BasicCppLibrary.cpp)
+add_library(${PROJECT_NAME} INTERFACE) # interface for header only libraries
 
 # Specify the include directory for the target
-target_include_directories(BasicCppLibrary PUBLIC include)
+target_include_directories(${PROJECT_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 # Platform-specific settings
 if(WIN32)

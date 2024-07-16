@@ -1,1 +1,1 @@
-cmake ./BasicCppLibrary -G "Visual Studio 17 2022" -A x64
+cmake . -B solution  -G "Visual Studio 17 2022" -A x64

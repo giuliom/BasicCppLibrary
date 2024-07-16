@@ -22,7 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F8F09343-31CE-39DD-9096-6C8232C07BCD}</ProjectGuid>
+    <ProjectGuid>{40335E7C-8F5E-394B-98A9-110D2860F60D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -125,7 +125,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\bbc1eaccbdb3f27c85f309c2390f922b\INSTALL_force.rule">
+    <CustomBuild Include="C:\Users\gmude\Development\BasicCppLibrary\CMakeFiles\bbc1eaccbdb3f27c85f309c2390f922b\INSTALL_force.rule">
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
@@ -189,14 +189,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\ZERO_CHECK.vcxproj">
-      <Project>{2891B112-F350-3D5D-8CB8-95E5CAE31129}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\ZERO_CHECK.vcxproj">
+      <Project>{E3DDD95C-666D-3A2E-B2E3-CED6866C65D3}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
     <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\ALL_BUILD.vcxproj">
-      <Project>{9F6D2965-C0DA-3740-8632-ED4623418BAE}</Project>
+      <Project>{0A8BA99B-6AEC-376E-B118-16D6CA8E7879}</Project>
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

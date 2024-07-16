@@ -35,13 +35,18 @@ debug/
 release/
 LibDebug/
 LibRelease/
-BasicCppLibrary/out/
+build/
 
 # Cmake
+solution/
+_deps/
+CMakeFiles/
+CMakeCache.txt
 BasicCppLibrary/CMakeFiles/
 BasicCppLibrary/CMakeCache.txt
 BasicCppLibrary/_deps
 BasicCppLibrary/build
+BasicCppLibrary/out/
 
 # Visual Studio 2022 database file
 

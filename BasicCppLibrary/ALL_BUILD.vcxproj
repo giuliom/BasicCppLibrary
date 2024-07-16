@@ -25,7 +25,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9F6D2965-C0DA-3740-8632-ED4623418BAE}</ProjectGuid>
+    <ProjectGuid>{0A8BA99B-6AEC-376E-B118-16D6CA8E7879}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -112,7 +112,7 @@
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -120,12 +120,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCXXCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeRCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -133,12 +133,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCXXCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeRCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -146,12 +146,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCXXCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeRCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/gmude/Development/BasicCppLibrary -BC:/Users/gmude/Development/BasicCppLibrary --check-stamp-file C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -159,7 +159,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeCXXCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeRCCompiler.cmake;C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\3.30.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\GoogleTest.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
@@ -167,38 +167,30 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\ZERO_CHECK.vcxproj">
-      <Project>{2891B112-F350-3D5D-8CB8-95E5CAE31129}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\ZERO_CHECK.vcxproj">
+      <Project>{E3DDD95C-666D-3A2E-B2E3-CED6866C65D3}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\BasicCppDemo.vcxproj">
-      <Project>{FD6C4C21-FEEF-3504-8A3A-3FA9FE9AE32B}</Project>
-      <Name>BasicCppDemo</Name>
-    </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\BasicCppLibrary.vcxproj">
-      <Project>{F8D13D40-E9B9-3A9D-B28C-5586FFE0A8EB}</Project>
-      <Name>BasicCppLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\LibTest.vcxproj">
-      <Project>{DC6C924E-F169-3B01-A599-C0B1C991AF9B}</Project>
+      <Project>{A689A335-EDA6-39BF-89E9-68E8D8B500E2}</Project>
       <Name>LibTest</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googlemock\gmock.vcxproj">
-      <Project>{09A06BB5-F13C-355B-A489-32CD3C0FD4D6}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\_deps\googletest-build\googlemock\gmock.vcxproj">
+      <Project>{962CACDD-D50A-3A9F-A725-9F0E524FF7DA}</Project>
       <Name>gmock</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googlemock\gmock_main.vcxproj">
-      <Project>{C85B8CBE-7087-3416-A145-EBF22560B493}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\_deps\googletest-build\googlemock\gmock_main.vcxproj">
+      <Project>{B934DDBE-080B-37A2-99F6-9AE01121A3DF}</Project>
       <Name>gmock_main</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googletest\gtest.vcxproj">
-      <Project>{02ABF33C-4D5F-316D-8DF6-CA0F76757775}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\_deps\googletest-build\googletest\gtest.vcxproj">
+      <Project>{7BDA4C67-6FA2-3387-87ED-0B51D1AC5F5C}</Project>
       <Name>gtest</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\BasicCppLibrary\_deps\googletest-build\googletest\gtest_main.vcxproj">
-      <Project>{08A05ACF-61C9-3F1A-B4AD-A29BF054A48E}</Project>
+    <ProjectReference Include="C:\Users\gmude\Development\BasicCppLibrary\_deps\googletest-build\googletest\gtest_main.vcxproj">
+      <Project>{7AAF9E4D-4F55-39F4-8E9C-0C723711F962}</Project>
       <Name>gtest_main</Name>
     </ProjectReference>
   </ItemGroup>
