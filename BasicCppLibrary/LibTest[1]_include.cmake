@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake")
-  include("C:/Users/gmude/Development/BasicCppLibrary/BasicCppLibrary/LibTest[1]_tests.cmake")
-else()
-  add_test(LibTest_NOT_BUILT LibTest_NOT_BUILT)
-endif()
