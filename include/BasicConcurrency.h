@@ -18,40 +18,43 @@ namespace bsc
 			Node(const T& val) : value(val), next(nullptr) {}
 		};
 
-		Node* m_first; // First node of the queue
+		std::atomic<Node*> m_first; // First node of the queue
 		Node* m_divider; // Divider between consumed and unconsumed nodes
-		Node* m_last; // Last added node
+		std::atomic<Node*> m_last; // Last added node
 
 	public:
 
 		lock_free_queue() : m_first(nullptr), m_divider(new Node(0)), m_last(nullptr) 
 		{
 			// Divider starts with a dummy node separator
-			m_first = m_divider;
-			m_last = m_divider;
+			m_first.store(m_divider, std::memory_order_relaxed);
+			m_last.store(m_divider, std::memory_order_relaxed);
 		}
 
 		~lock_free_queue()
 		{
-			while (m_first != nullptr)
+
+			while (m_first.load(std::memory_order_relaxed) != nullptr)
 			{
-				Node* temp = m_first;
-				m_first = m_first->next;
+				Node* temp = m_first.load(std::memory_order_relaxed);
+				m_first.store(temp->next, std::memory_order_relaxed);
 				delete temp;
 			}
 		}
 
 		bool produce(const T& value)
 		{
-			m_last->next = new Node(value);
-			m_last = m_last->next;
+			Node* last = m_last.load(std::memory_order_relaxed);
+			last->next = new Node(value);
+			m_last.store(last->next, std::memory_order_relaxed);
 
 			// Delete consumed nodes, they are owned by the producer
 			// and to the left of the divider node, which is always valid
+			std::atomic_thread_fence(std::memory_order_release);
 			while (m_first != m_divider)
 			{
-				Node* temp = m_first;
-				m_first = m_first->next;
+				Node* temp = m_first.load(std::memory_order_relaxed);
+				m_first.store(temp->next, std::memory_order_relaxed);
 				delete temp;
 			}
 
@@ -61,7 +64,8 @@ namespace bsc
 		bool consume(T& out_result)
 		{
 			// Empty queue check, the divider node is already consumed
-			if (m_divider != m_last)
+			std::atomic_thread_fence(std::memory_order_acquire);
+			if (m_divider != m_last.load(std::memory_order_relaxed))
 			{         
 				out_result = m_divider->next->value;
 				m_divider = m_divider->next;
