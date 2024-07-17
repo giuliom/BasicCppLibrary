@@ -5,9 +5,10 @@ project(BasicCppLibrary)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(FetchContent)
+
 # Avoid warnings by using new policy
 cmake_policy(SET CMP0135 NEW)
-include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
@@ -30,14 +31,13 @@ include(GoogleTest)
 gtest_discover_tests(LibTest)
 
 # Library setup
-include_directories(${PROJECT_SOURCE_DIR}/include)
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 
 # Add the library target
-add_library(${PROJECT_NAME} INTERFACE) # interface for header only libraries
+add_library(${PROJECT_NAME} SHARED ${SOURCES}) # interface for header only libraries
 
 # Specify the include directory for the target
-target_include_directories(${PROJECT_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 # Platform-specific settings
 if(WIN32)
