@@ -23,17 +23,17 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 file (GLOB TESTS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
-add_executable(LibTest ${TESTS})
+add_executable(BasicCppTest ${TESTS})
 
 target_link_libraries(
-  LibTest
+  BasicCppTest
   GTest::gtest_main
 )
 
-target_include_directories(LibTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories(BasicCppTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 include(GoogleTest)
-gtest_discover_tests(LibTest)
+gtest_discover_tests(BasicCppTest)
 
 # ------ BasicCppLibrary ----- #
 
