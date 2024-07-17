@@ -27,6 +27,8 @@ target_link_libraries(
   GTest::gtest_main
 )
 
+target_include_directories(LibTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+
 include(GoogleTest)
 gtest_discover_tests(LibTest)
 
@@ -34,10 +36,13 @@ gtest_discover_tests(LibTest)
 file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 
 # Add the library target
-add_library(${PROJECT_NAME} SHARED ${SOURCES}) # interface for header only libraries
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 # Specify the include directory for the target
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+
+# Set the library version (optional)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION 1.0 SOVERSION 1)
 
 # Platform-specific settings
 if(WIN32)

@@ -12,6 +12,8 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 add_subdirectory(${BSC_PATH})
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/include" "${BSC_PATH}/include/")
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${BSC_PATH}/include/")
 
 target_link_libraries(${PROJECT_NAME} PUBLIC BasicCppLibrary)
+
+add_dependencies(${PROJECT_NAME} BasicCppLibrary)
