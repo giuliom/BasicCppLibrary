@@ -35,35 +35,28 @@ target_include_directories(BasicCppTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/inc
 include(GoogleTest)
 gtest_discover_tests(BasicCppTest)
 
+
 # ------ BasicCppLibrary ----- #
 
-# Library setup
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
+file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 
-# Add the library target
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${HEADERS})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-# Specify the include directory for the target
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 # Set the library version (optional)
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION 1.0 SOVERSION 1)
 
-# Platform-specific settings
-if(WIN32)
-    message(STATUS "Configuring for Windows")
-elseif(UNIX)
-    message(STATUS "Configuring for Linux")
-endif()
-
-# Install rules
 install(TARGETS BasicCppLibrary DESTINATION lib)
+
 
 # ------ BasicCppSample ----- #
 
 project(BasicCppSample)
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME} PUBLIC BasicCppLibrary)
