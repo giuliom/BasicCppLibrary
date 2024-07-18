@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
-project(BasicCppLibrary)
+project(BasicCppLibraryProj)
+
+set(LIBRARY_NAME BasicCppLibrary)
 
 # GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
@@ -40,15 +42,15 @@ gtest_discover_tests(BasicCppTest)
 
 file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 
-add_library(${PROJECT_NAME} STATIC ${HEADERS})
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+add_library(${LIBRARY_NAME} STATIC ${HEADERS})
+set_target_properties(${LIBRARY_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories(${LIBRARY_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
 
 # Set the library version (optional)
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION 1.0 SOVERSION 1)
+set_target_properties(${LIBRARY_NAME} PROPERTIES VERSION 1.0 SOVERSION 1)
 
-install(TARGETS BasicCppLibrary DESTINATION lib)
+install(TARGETS ${LIBRARY_NAME} DESTINATION lib)
 
 
 # ------ BasicCppSample ----- #
