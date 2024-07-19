@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits.h>
+#include <iterator>
 #include <BasicGlobal.h>
 
 namespace bsc
