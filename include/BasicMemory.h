@@ -1,41 +1,12 @@
 #pragma once
 
 #include <cassert>
+#include <stdio.h>
+#include <iostream>
+#include <atomic>
 #include <BasicGlobal.h>
 
 //TODO: more custom allocators, memory allocation strategies, tests...
-
-
-// ----- custom global new -----
-void* operator new(std::size_t size)
-{
-	if (size == 0) // Must always allocate at least one byte
-	{
-		++size;
-	}
-
-	void* p = malloc(size);
-	if (p)
-	{
-#ifdef _DEBUG
-//		std::cout << std::endl << "Allocated " << size << " bytes at " << p;
-#endif // _DEBUG
-
-		return p;
-	}
-
-	throw std::bad_alloc{};
-}
-
-
-// ----- custom global delete -----
-void operator delete(void* p) noexcept
-{
-#ifdef _DEBUG
-//	std::cout << std::endl << "Deallocated bytes at " << p;
-#endif // _DEBUG
-	free(p);
-}
 
 namespace bsc
 {
@@ -45,17 +16,13 @@ namespace bsc
 	class allocator_data
 	{
 	protected:
-		static long allocations;
-		static long deallocations;
+		static std::atomic<long> allocations;
+		static std::atomic<long> deallocations;
 
 	public:
 		static long num_allocations() { return allocations; }
 		static long num_deallocations() { return deallocations; }
 	};
-
-	long allocator_data::allocations = 0;
-	long allocator_data::deallocations = 0;
-
 
 	// ----- base_allocator -----
 	template<class T>

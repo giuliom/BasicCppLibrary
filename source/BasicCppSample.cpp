@@ -1,4 +1,4 @@
-// BasicCppLibrary.cpp : Defines the entry point for the console application.
+// BasicCppSample.cpp : Defines the entry point for the console application.
 //
 
 #include <stdio.h>
