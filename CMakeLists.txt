@@ -3,6 +3,9 @@ project(BasicCppLibraryProj)
 
 set(LIBRARY_NAME BasicCppLibrary)
 
+# Only builds the library target
+set(BSC_LIB_ONLY false)
+
 # GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -10,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 # Avoid warnings by using new policy
 cmake_policy(SET CMP0135 NEW)
+
 
 # ------ BasicCppLibrary ----- #
 
@@ -29,38 +33,42 @@ install(TARGETS ${LIBRARY_NAME} DESTINATION lib)
 
 # ------ Google Test ----- #
 
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+if (NOT BSC_LIB_ONLY)
 
-enable_testing()
+  FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+  )
+  # For Windows: Prevent overriding the parent project's compiler/linker settings
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  FetchContent_MakeAvailable(googletest)
 
-file (GLOB TESTS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
-add_executable(BasicCppTest ${TESTS})
+  enable_testing()
 
-target_link_libraries(
-  BasicCppTest
-  GTest::gtest_main
-  ${LIBRARY_NAME}
-)
+  file (GLOB TESTS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
+  add_executable(BasicCppTest ${TESTS})
 
-target_include_directories(BasicCppTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+  target_link_libraries(
+    BasicCppTest
+    GTest::gtest_main
+    ${LIBRARY_NAME}
+  )
 
-include(GoogleTest)
-gtest_discover_tests(BasicCppTest)
+  target_include_directories(BasicCppTest PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+
+  include(GoogleTest)
+  gtest_discover_tests(BasicCppTest)
 
 
-# ------ BasicCppSample ----- #
+  # ------ BasicCppSample ----- #
 
-project(BasicCppSample)
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppSample.cpp" ${LIB_SOURCES})
-list(REMOVE_ITEM LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppLibrary.cpp")
+  project(BasicCppSample)
+  file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppSample.cpp" ${LIB_SOURCES})
+  list(REMOVE_ITEM LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppLibrary.cpp")
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+  add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBRARY_NAME})
+  target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+  target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBRARY_NAME})
+
+endif()
