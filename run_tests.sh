@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cmake -S . -B build
-cmake --build build
+cmake --build build --config release
 cd build
-ctest
+ctest -C release
