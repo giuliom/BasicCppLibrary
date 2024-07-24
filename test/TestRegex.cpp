@@ -4,7 +4,7 @@
 
 #define SUITE_NAME TestRegex
 
-TEST(SUITE_NAME, SelectionSort)
+TEST(SUITE_NAME, SearchAllMatches)
 {
     std::vector<int> control = { 0, 1,2 };
     std::vector<std::cmatch> matches;
