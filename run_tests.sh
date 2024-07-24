@@ -3,4 +3,4 @@
 cmake -S . -B build
 cmake --build build --config release
 cd build
-ctest -C release
+ctest -C release --output-on-failure
