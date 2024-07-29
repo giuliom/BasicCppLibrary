@@ -1,10 +1,15 @@
 #pragma once
 
+#include <type_traits>
+
 namespace bsc
 {
 	namespace math
 	{
-		template<typename T>
+		template<typename A>
+		concept Arithmetic = std::is_arithmetic<A>::value;
+
+		template<Arithmetic T>
 		T fibonacci(T n)
 		{
 			if (n < 2)
