@@ -24,8 +24,8 @@ If you want to generate a Visual Studio solution run shell script `generate_vs_s
 - Install Cmake
 - Run shell scripts `build.sh` and `run_tests.sh` to build the project and run the tests
 - There are 3 CMake targets:
-  - The library BasicCppLibrary
-  - The sample executable BasicCppSample
-  - The Google Test executable BasicCppTest
+  - The library `BasicCppLibrary`
+  - The sample executable `BasicCppSample`
+  - The Google Test executable `BasicCppTest`
 
 It is recommended to consume the library using CMake's [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
