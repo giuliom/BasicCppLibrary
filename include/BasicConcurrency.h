@@ -104,7 +104,7 @@ namespace bsc
 			}
 			else
 			{
-				return capacity - front + tail;
+				return capacity() - front + tail;
 			}
 		}
 

@@ -58,3 +58,5 @@ BasicCppLibrary/out/
 
 # Visual Studio 2022 Settings
 .vs
+
+.DS_Store
