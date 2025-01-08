@@ -46,7 +46,7 @@ if (NOT BSC_LIB_ONLY)
 
   enable_testing()
 
-  file (GLOB TESTS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
+  file (GLOB TESTS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
   add_executable(BasicCppTest ${TESTS})
 
   target_link_libraries(
