@@ -2,6 +2,7 @@
 
 #include <BasicGlobal.h>
 #include <functional>
+#include <stdexcept>
 
 namespace bsc
 {
