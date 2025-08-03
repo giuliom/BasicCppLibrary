@@ -64,7 +64,7 @@ if (NOT BSC_LIB_ONLY)
   # ------ BasicCppSample ----- #
 
   project(BasicCppSample)
-  file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppSample.cpp" ${LIB_SOURCES})
+  file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppSample.cpp")
   list(REMOVE_ITEM LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/source/BasicCppLibrary.cpp")
 
   add_executable(${PROJECT_NAME} ${SOURCES})
