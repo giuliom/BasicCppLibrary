@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cmake -S . -B build
-cmake --build build --config release
+cmake --build build --config release --target BasicCppTest
 cd build
 ctest -C release --output-on-failure
