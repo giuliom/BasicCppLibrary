@@ -155,7 +155,7 @@ int main()
             A, B, C, COUNT
         };
 
-        bsc::bit_enum<TEST_ENUM, TEST_ENUM::COUNT> be_test;
+        bsc::bit_enum<TEST_ENUM> be_test;
 
         be_test[TEST_ENUM::B] = true;
 

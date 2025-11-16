@@ -5,6 +5,14 @@
 
 namespace bsc
 {
+    // Allow de-allocation and keep searcheable available spaces for re-allocation. spaces should be merged
+
+    // Use memory pool style for block sizes
+
+    // Use custom virtual memory address type to allow resizing of the arena/paging
+
+    // https://en.wikipedia.org/wiki/Buddy_memory_allocation
+
     template <typename T>
     class BasicArenaAllocator {
     public:

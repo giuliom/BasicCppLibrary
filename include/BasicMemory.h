@@ -8,6 +8,37 @@
 
 //TODO: more custom allocators, memory allocation strategies, tests...
 
+// ----- custom global new -----
+void* operator new(std::size_t size)
+{
+	if (size == 0) // Must always allocate at least one byte
+	{
+		++size;
+	}
+
+	void* p = malloc(size);
+	if (p)
+	{
+#ifdef _DEBUG
+//		std::cout << std::endl << "Allocated " << size << " bytes at " << p;
+#endif // _DEBUG
+
+		return p;
+	}
+
+	throw std::bad_alloc{};
+}
+
+
+// ----- custom global delete -----
+void operator delete(void* p) noexcept
+{
+#ifdef _DEBUG
+//	std::cout << std::endl << "Deallocated bytes at " << p;
+#endif // _DEBUG
+	free(p);
+}
+
 namespace bsc
 {
 	// ======================================= ALLOCATORS =======================================
@@ -23,6 +54,10 @@ namespace bsc
 		static long num_allocations() { return allocations; }
 		static long num_deallocations() { return deallocations; }
 	};
+
+	// Static member definitions
+	inline std::atomic<long> allocator_data::allocations = 0;
+	inline std::atomic<long> allocator_data::deallocations = 0;
 
 	// ----- base_allocator -----
 	template<class T>
