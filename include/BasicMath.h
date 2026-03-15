@@ -7,7 +7,7 @@ namespace bsc
 	namespace math
 	{
 		template<typename A>
-		concept Arithmetic = std::is_arithmetic<A>::value;
+		concept Arithmetic = std::is_arithmetic_v<A>;
 
 		template<Arithmetic T>
 		T fibonacci(T n)

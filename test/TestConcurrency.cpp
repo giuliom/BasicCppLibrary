@@ -2,10 +2,11 @@
 
 #include <BasicGlobal.h>
 #include <BasicConcurrency.h>
+#include <string_view>
 
 #define SUITE_NAME TestConcurrency
 
-auto producer = [](auto* data_structure, uint iterations, const std::string& name)
+auto producer = [](auto* data_structure, uint iterations, std::string_view name)
 {
     while (iterations > 0)
     {
@@ -18,7 +19,7 @@ auto producer = [](auto* data_structure, uint iterations, const std::string& nam
     }
 };
 
-auto consumer = [](auto* data_structure, uint expected_iterations, const std::string& name)
+auto consumer = [](auto* data_structure, uint expected_iterations, std::string_view name)
 {
     uint prev_value = expected_iterations + 1;
 

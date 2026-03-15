@@ -1,10 +1,11 @@
 // BasicCppSample.cpp : Defines the entry point for the console application.
 //
 
-#include <stdio.h>
+#include <print>
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <string_view>
 #include "BasicGlobal.h"
 #include "BasicAlgorithm.h"
 #include "BasicMath.h"
@@ -23,70 +24,69 @@ namespace
 
 int main()
 {
-    std::cout<< "--- BasicCppLibrary Sample Demos ---"<<std::endl;
+    std::println("--- BasicCppLibrary Sample Demos ---");
 
     // --------------------------------------- Algorithm Demo ---------------------------------------
     std::weak_ptr<int> ptr;
     {
-        std::cout << std::endl << "Algorithm Demo" << std::endl;
+        std::println("\nAlgorithm Demo");
         std::vector<int> v = { -1, 0, 3, 5, 9, 12 };
         std::vector<int> v2 = v;
         bsc::bubble_sort(v.begin(), v.end());
 
         auto searched_it = bsc::binary_search(v2, 9);
-        std::cout << *searched_it;
-        std::cout << std::endl;
+        std::println("{}", *searched_it);
     }
 
     // --------------------------------------- Chrono Demo ------------------------------------------
 
     {
-        std::cout << std::endl << "Chrono Demo" << std::endl;
+        std::println("\nChrono Demo");
         const auto begin = std::chrono::high_resolution_clock::now();
         std::this_thread::sleep_for(10ms);
         const auto now = std::chrono::high_resolution_clock::now();
 
         const float milliseconds = bsc::chrono::convert_chrono_duration<float, std::chrono::milliseconds>(now - begin);
-        std::cout << milliseconds << " ms\n";
+        std::println("{} ms", milliseconds);
     }
 
     // --------------------------------------- Math Demo --------------------------------------------
 
     {
-        std::cout << std::endl << "Math Demo" << std::endl;
+        std::println("\nMath Demo");
         uint n = 10u;
         for (uint i = 0u; i < n; ++i)
         {
-            std::cout << bsc::math::fibonacci(i) << " ";
+            std::print("{} ", bsc::math::fibonacci(i));
         }
-        std::cout << std::endl;
+        std::println("");
     }
 
     // --------------------------------------- Regex Demo --------------------------------------------
 
     {
-        std::cout << std::endl << "Regex Demo" << std::endl;
+        std::println("\nRegex Demo");
         std::vector<std::cmatch> matches;
         std::regex rgx(R"(\d+)");
         bsc::regex::search_all_matches(" 0, 1, 2", matches, rgx);
 
         for (auto& m : matches)
         {
-            std::cout << bsc::regex::match_to_int(m) << " ";
+            std::print("{} ", bsc::regex::match_to_int(m));
         }
-        std::cout << std::endl;
+        std::println("");
     }
 
     // --------------------------------------- Concurrency Demo -----------------------------------------
 
     {
-        std::cout << std::endl << "Concurrency Demo" << std::endl;
+        std::println("\nConcurrency Demo");
 
         //TODO write proper demo
         bsc::lock_free_queue<uint> lfq;
         bsc::lock_free_ring_buffer<uint> lfrb(5);
 
-        auto producer = [](auto* data_structure, uint iterations, const std::string& name)
+        auto producer = [](auto* data_structure, uint iterations, std::string_view name)
             {
                 while (iterations > 0)
                 {
@@ -99,10 +99,10 @@ int main()
                 }
 
                 std::scoped_lock<std::mutex> lock(g_coutMtx);
-                std::cout << std::endl << "Producer Thread " << name << ": data successfully produced" << std::endl;
+                std::println("\nProducer Thread {}: data successfully produced", name);
             };
 
-        auto consumer = [](auto* data_structure, uint expected_iterations, const std::string& name)
+        auto consumer = [](auto* data_structure, uint expected_iterations, std::string_view name)
             {
                 uint prev_value = expected_iterations + 1;
 
@@ -115,7 +115,7 @@ int main()
                     {
                         if (value != prev_value - 1)
                         {
-                            std::cout << std::endl << "Consumer Thread " << name << ": Wrong data at iteration " << expected_iterations << std::endl;
+                            std::println("\nConsumer Thread {}: Wrong data at iteration {}", name, expected_iterations);
                             return;
                         }
 
@@ -125,7 +125,7 @@ int main()
                 }
 
                 std::scoped_lock<std::mutex> lock(g_coutMtx);
-                std::cout << std::endl << "Consumer Thread " << name << ": data successfully consumed" << std::endl;
+                std::println("\nConsumer Thread {}: data successfully consumed", name);
             };
 
         // Lock Free Queue Test
@@ -148,7 +148,7 @@ int main()
     // --------------------------------------- Enum Class Demo -----------------------------------------
 
     {
-        std::cout << std::endl << "Enum Class Demo" << std::endl;
+        std::println("\nEnum Class Demo");
 
         enum class TEST_ENUM
         {
@@ -161,43 +161,43 @@ int main()
 
         be_test[TEST_ENUM::C] = be_test[TEST_ENUM::B];
 
-        std::cout << "Size: " << be_test.size() << std::endl;
+        std::println("Size: {}", be_test.size());
     }
 
     // --------------------------------------- Math Demo -----------------------------------------
 
     {
-        std::cout << std::endl << "Math Demo" << std::endl;
+        std::println("\nMath Demo");
 
-        std::cout << "First 10 Fibonacci Numbers: ";
+        std::print("First 10 Fibonacci Numbers: ");
         for (int i = 0; i < 10; i++)
         {
-            std::cout << bsc::math::fibonacci<int>(i) << " ";
+            std::print("{} ", bsc::math::fibonacci<int>(i));
         }
-        std::cout << std::endl;
+        std::println("");
     }
 
     // --------------------------------------- Memory Demo -----------------------------------------
     
     {
-        std::cout << std::endl << "Memory Demo" << std::endl;
+        std::println("\nMemory Demo");
 
         const bsc::unique_ptr<int> size = new int(10);
         const int count = *size;
 
         int* my_ints = new int[count];
 
-        std::cout << std::endl;
+        std::println("");
 
         for (int i = 0; i < count; ++i)
         {
             my_ints[i] = i;
-            std::cout << my_ints[i] << " ";
+            std::print("{} ", my_ints[i]);
         }
 
         delete[] my_ints;
 
-        std::cout << std::endl;
+        std::println("");
 
         bsc::shared_ptr<float> sh0 = new float(3.14f);
         bsc::weak_ptr<float> weak_sh0(sh0);
@@ -205,25 +205,25 @@ int main()
             bsc::shared_ptr<float> sh1 = sh0;
             std::vector<int, bsc::base_allocator<int>> base_allocator_vector(5, 1);
 
-            std::cout << std::endl;
+            std::println("");
 
             for (const auto& i : base_allocator_vector)
             {
-                std::cout << i << " ";
+                std::print("{} ", i);
             }
         }
 
-        std::cout << std::endl << *sh0 << std::endl;
+        std::println("\n{}", *sh0);
 
         sh0.reset();
 
         std::string expiration = weak_sh0.expired() ? "Expired shared_ptr" : std::to_string(*weak_sh0);
-        std::cout << std::endl << expiration;
+        std::print("\n{}", expiration);
 
-        std::cout << std::endl;
+        std::println("");
 
 #ifdef _DEBUG
-        std::cout << "Allocations: " << bsc::base_allocator<int>::num_allocations() << " deallocations: " << bsc::base_allocator<int>::num_deallocations() << std::endl;
+        std::println("Allocations: {} deallocations: {}", bsc::base_allocator<int>::num_allocations(), bsc::base_allocator<int>::num_deallocations());
 #endif // _DEBUG
     }
 

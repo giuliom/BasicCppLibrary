@@ -1,7 +1,8 @@
 #pragma once
 
-#include <limits.h>
+#include <climits>
 #include <iterator>
+#include <algorithm>
 #include <BasicGlobal.h>
 
 namespace bsc

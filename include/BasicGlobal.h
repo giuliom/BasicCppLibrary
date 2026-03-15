@@ -1,4 +1,6 @@
 #pragma once
 
-typedef unsigned int uint;
-typedef unsigned char uchar;
+#include <cstdint>
+
+using uint = unsigned int;
+using uchar = unsigned char;
