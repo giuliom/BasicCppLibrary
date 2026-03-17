@@ -18,6 +18,9 @@ A C++ collection of useful or custom methods and classes covering these topics:
 
 ## Getting Started
 
+# Requirements
+- C++23
+
 The library is cross-platofrm and fully supports Cmake.
 If you want to generate a Visual Studio solution run shell script `generate_vs_sln.sh`
 
