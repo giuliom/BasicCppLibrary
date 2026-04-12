@@ -190,7 +190,7 @@ namespace bsc
 		{
 			if (m_ptr)
 			{
-				return *m_ptr;
+				return m_ptr;
 			}
 
 			return nullptr;
@@ -330,6 +330,11 @@ namespace bsc
 
 		shared_ptr& operator=(const shared_ptr& other)
 		{
+			if (this == &other)
+			{
+				return *this;
+			}
+
 			if (m_cblock != nullptr)
 			{
 				m_cblock->decrement_res_count();
@@ -341,6 +346,8 @@ namespace bsc
 			{
 				m_cblock->increment_res_count();
 			}
+
+			return *this;
 		}
 
 		shared_ptr(shared_ptr&& other)
@@ -351,13 +358,15 @@ namespace bsc
 
 		shared_ptr& operator=(shared_ptr&& other)
 		{
-			if (m_cblock != other.m_cblock)
+			if (m_cblock != nullptr && m_cblock != other.m_cblock)
 			{
 				m_cblock->decrement_res_count();
 			}
 
 			m_cblock = other.m_cblock;
 			other.m_cblock = nullptr;
+
+			return *this;
 		}
 
 		void reset()
@@ -391,7 +400,7 @@ namespace bsc
 
 		long get_count() const
 		{
-			return m_cblock->get_res_count();
+			return m_cblock ? m_cblock->get_res_count() : 0;
 		}
 	};
 
@@ -405,14 +414,20 @@ namespace bsc
 	public:
 		weak_ptr() : m_cblock(nullptr) {}
 		constexpr weak_ptr(std::nullptr_t) noexcept : m_cblock(nullptr) {}
-		weak_ptr(shared_ptr<T> shared) : m_cblock(shared.m_cblock)
+		weak_ptr(const shared_ptr<T>& shared) : m_cblock(shared.m_cblock)
 		{
 			if (m_cblock != nullptr)
 			{
 				m_cblock->increment_block_count();
 			}
 		}
-
+		weak_ptr(const weak_ptr& other) : m_cblock(other.m_cblock)
+		{
+			if (m_cblock != nullptr)
+			{
+				m_cblock->increment_block_count();
+			}
+		}
 		~weak_ptr()
 		{
 			if (m_cblock != nullptr)
@@ -478,7 +493,24 @@ namespace bsc
 		}
 
 		// TODO
-		shared_ptr<T> lock() const {}
-		void swap(weak_ptr<T>& b) {}
+		shared_ptr<T> lock() const
+		{
+			if (expired())
+			{
+				return shared_ptr<T>();
+			}
+
+			shared_ptr<T> sp;
+			sp.m_cblock = m_cblock;
+			m_cblock->increment_res_count();
+			return sp;
+		}
+
+		void swap(weak_ptr<T>& b)
+		{
+			control_block<T>* tmp = m_cblock;
+			m_cblock = b.m_cblock;
+			b.m_cblock = tmp;
+		}
 	};
 }
