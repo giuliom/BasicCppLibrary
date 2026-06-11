@@ -182,7 +182,7 @@ int main()
     {
         std::println("\nMemory Demo");
 
-        const bsc::unique_ptr<int> size = new int(10);
+        const bsc::unique_ptr<int> size(new int(10));
         const int count = *size;
 
         int* my_ints = new int[count];

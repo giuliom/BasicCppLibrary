@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 
+#include <thread>
+#include <vector>
+
 #include <BasicMemory.h>
 
 #define SUITE_NAME TestMemory
@@ -23,7 +26,7 @@ TEST(SUITE_NAME, UniquePtr)
 	int counter = 0;
 	{
 		delete_counter* dc = new delete_counter(counter);
-		bsc::unique_ptr<delete_counter> ptr = dc;
+		bsc::unique_ptr<delete_counter> ptr(dc);
 		EXPECT_EQ(ptr->get_value(), 0);
 		EXPECT_EQ(dc->get_value(), ptr->get_value());
 	}
@@ -111,6 +114,67 @@ TEST(SUITE_NAME, UniquePtrResetTwice)
 	ptr.reset();
 	ptr.reset(); // should be safe
 	EXPECT_EQ(counter, 1);
+}
+
+TEST(SUITE_NAME, UniquePtrResetWithPointer)
+{
+	int counter1 = 0;
+	int counter2 = 0;
+	bsc::unique_ptr<delete_counter> ptr(new delete_counter(counter1));
+
+	ptr.reset(new delete_counter(counter2));
+	EXPECT_EQ(counter1, 1); // old resource deleted
+	EXPECT_EQ(counter2, 0); // new resource alive
+	EXPECT_NE(ptr.get(), nullptr);
+}
+
+TEST(SUITE_NAME, UniquePtrRelease)
+{
+	int counter = 0;
+	bsc::unique_ptr<delete_counter> ptr(new delete_counter(counter));
+
+	delete_counter* raw = ptr.release();
+	EXPECT_EQ(ptr.get(), nullptr);
+	EXPECT_NE(raw, nullptr);
+	EXPECT_EQ(counter, 0); // ownership released, not deleted
+
+	delete raw;
+	EXPECT_EQ(counter, 1);
+}
+
+TEST(SUITE_NAME, UniquePtrSwap)
+{
+	bsc::unique_ptr<int> p1(new int(10));
+	bsc::unique_ptr<int> p2(new int(20));
+
+	p1.swap(p2);
+	EXPECT_EQ(*p1, 20);
+	EXPECT_EQ(*p2, 10);
+}
+
+TEST(SUITE_NAME, UniquePtrOperatorBool)
+{
+	bsc::unique_ptr<int> empty;
+	bsc::unique_ptr<int> full(new int(1));
+	EXPECT_FALSE(static_cast<bool>(empty));
+	EXPECT_TRUE(static_cast<bool>(full));
+}
+
+TEST(SUITE_NAME, UniquePtrSelfMoveAssignment)
+{
+	int counter = 0;
+	bsc::unique_ptr<delete_counter> ptr(new delete_counter(counter));
+
+	bsc::unique_ptr<delete_counter>* alias = &ptr;
+	ptr = std::move(*alias);
+	EXPECT_EQ(counter, 0);
+	EXPECT_NE(ptr.get(), nullptr);
+}
+
+TEST(SUITE_NAME, MakeUnique)
+{
+	bsc::unique_ptr<int> ptr = bsc::make_unique<int>(42);
+	EXPECT_EQ(*ptr, 42);
 }
 
 // ==================== shared_ptr ====================
@@ -235,6 +299,58 @@ TEST(SUITE_NAME, SharedPtrMoveAssignmentFromEmpty)
 
 	s2 = std::move(s1);
 	EXPECT_EQ(s2.get(), nullptr);
+}
+
+TEST(SUITE_NAME, SharedPtrSelfMoveAssignment)
+{
+	int counter = 0;
+	bsc::shared_ptr<delete_counter> s1(new delete_counter(counter));
+
+	bsc::shared_ptr<delete_counter>* alias = &s1;
+	s1 = std::move(*alias);
+	EXPECT_EQ(counter, 0);
+	EXPECT_NE(s1.get(), nullptr);
+	EXPECT_EQ(s1.get_count(), 1);
+}
+
+TEST(SUITE_NAME, SharedPtrMoveAssignmentSameControlBlock)
+{
+	int counter = 0;
+	{
+		bsc::shared_ptr<delete_counter> s1(new delete_counter(counter));
+		bsc::shared_ptr<delete_counter> s2 = s1; // same control block, count 2
+
+		s2 = std::move(s1); // two references collapse into one
+		EXPECT_EQ(s1.get(), nullptr);
+		EXPECT_EQ(s2.get_count(), 1);
+		EXPECT_EQ(counter, 0);
+	}
+	EXPECT_EQ(counter, 1); // no leak
+}
+
+TEST(SUITE_NAME, SharedPtrSwap)
+{
+	bsc::shared_ptr<int> s1(new int(10));
+	bsc::shared_ptr<int> s2(new int(20));
+
+	s1.swap(s2);
+	EXPECT_EQ(*s1, 20);
+	EXPECT_EQ(*s2, 10);
+}
+
+TEST(SUITE_NAME, SharedPtrOperatorBool)
+{
+	bsc::shared_ptr<int> empty;
+	bsc::shared_ptr<int> full(new int(1));
+	EXPECT_FALSE(static_cast<bool>(empty));
+	EXPECT_TRUE(static_cast<bool>(full));
+}
+
+TEST(SUITE_NAME, MakeShared)
+{
+	bsc::shared_ptr<int> ptr = bsc::make_shared<int>(42);
+	EXPECT_EQ(*ptr, 42);
+	EXPECT_EQ(ptr.get_count(), 1);
 }
 
 TEST(SUITE_NAME, SharedPtrReset)
@@ -428,4 +544,108 @@ TEST(SUITE_NAME, WeakPtrMultipleWeaksSameShared)
 	EXPECT_TRUE(w1.expired());
 	EXPECT_TRUE(w2.expired());
 	EXPECT_TRUE(w3.expired());
+}
+
+TEST(SUITE_NAME, WeakPtrMoveConstructor)
+{
+	bsc::shared_ptr<int> sptr(new int(7));
+	bsc::weak_ptr<int> w1 = sptr;
+	bsc::weak_ptr<int> w2(std::move(w1));
+
+	EXPECT_TRUE(w1.expired()); // moved-from is empty
+	EXPECT_FALSE(w2.expired());
+	EXPECT_EQ(*w2.lock(), 7);
+}
+
+TEST(SUITE_NAME, WeakPtrMoveAssignment)
+{
+	bsc::shared_ptr<int> s1(new int(7));
+	bsc::shared_ptr<int> s2(new int(8));
+	bsc::weak_ptr<int> w1 = s1;
+	bsc::weak_ptr<int> w2 = s2;
+
+	w2 = std::move(w1);
+	EXPECT_TRUE(w1.expired()); // moved-from is empty
+	EXPECT_EQ(*w2.lock(), 7);
+}
+
+TEST(SUITE_NAME, WeakPtrSelfMoveAssignment)
+{
+	bsc::shared_ptr<int> sptr(new int(7));
+	bsc::weak_ptr<int> wptr = sptr;
+
+	bsc::weak_ptr<int>* alias = &wptr;
+	wptr = std::move(*alias);
+	EXPECT_FALSE(wptr.expired());
+}
+
+// ==================== thread safety ====================
+
+TEST(SUITE_NAME, SharedPtrConcurrentCopyAndDestroy)
+{
+	constexpr int num_threads = 8;
+	constexpr int iterations = 10000;
+
+	int counter = 0;
+	bsc::shared_ptr<delete_counter> source(new delete_counter(counter));
+
+	std::vector<std::thread> threads;
+	for (int t = 0; t < num_threads; ++t)
+	{
+		threads.emplace_back([&source]()
+		{
+			for (int i = 0; i < iterations; ++i)
+			{
+				bsc::shared_ptr<delete_counter> copy = source;
+				bsc::shared_ptr<delete_counter> moved = std::move(copy);
+				moved.reset();
+			}
+		});
+	}
+
+	for (std::thread& t : threads)
+	{
+		t.join();
+	}
+
+	EXPECT_EQ(source.get_count(), 1);
+	EXPECT_EQ(counter, 0);
+
+	source.reset();
+	EXPECT_EQ(counter, 1);
+}
+
+TEST(SUITE_NAME, WeakPtrConcurrentLock)
+{
+	constexpr int num_threads = 8;
+	constexpr int iterations = 10000;
+
+	int counter = 0;
+	bsc::shared_ptr<delete_counter> source(new delete_counter(counter));
+	bsc::weak_ptr<delete_counter> weak = source;
+
+	std::vector<std::thread> threads;
+	for (int t = 0; t < num_threads; ++t)
+	{
+		threads.emplace_back([&weak]()
+		{
+			for (int i = 0; i < iterations; ++i)
+			{
+				bsc::shared_ptr<delete_counter> locked = weak.lock();
+				bsc::weak_ptr<delete_counter> wcopy = weak;
+			}
+		});
+	}
+
+	for (std::thread& t : threads)
+	{
+		t.join();
+	}
+
+	EXPECT_EQ(source.get_count(), 1);
+	EXPECT_EQ(counter, 0);
+
+	source.reset();
+	EXPECT_EQ(counter, 1);
+	EXPECT_TRUE(weak.expired());
 }
